@@ -38,7 +38,7 @@ int main(){
     server_addr.sin_port = htons(PORT);           //converte il numero di porta in formato di rete
 
     bind(server_socket, (struct sockaddr*)&server_addr, sizeof(server_addr));        //collega il socket alla porta specificata
-    listen(server_socket, 5); //mette il server in ascolto
+    listen(server_socket, 3); //mette il server in ascolto
     printf("server in ascolto sulla porta %d...\n", PORT);
 
     while(1){
