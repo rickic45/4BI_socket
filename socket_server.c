@@ -1,8 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
+#include <stdio.h>      //libreria standard per input/output
+#include <stdlib.h>     //libreria standard per funzioni generiche (es. exit)
+#include <string.h>     //per la manipolazione delle stringhe
+#include <unistd.h>     //per funzioni di sistema (es. close)
+#include <arpa/inet.h>  //per socket e funzioni di rete
 
 #define PORT 5700
 #define BUFFER_SIZE 1024
