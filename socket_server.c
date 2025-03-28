@@ -4,8 +4,8 @@
 #include <unistd.h>     //per funzioni di sistema (es. close)
 #include <arpa/inet.h>  //per socket e funzioni di rete
 
-#define PORT 5700
-#define BUFFER_SIZE 1024
+#define PORT 5700 //definisce la porta su cui il server ascolterà le connessioni
+#define BUFFER_SIZE 1024 //imposta la dimensione del buffer per la lettura dei dati
 
 // Gestisce la comunicazione con un client
 void handle_client(int client_socket){
