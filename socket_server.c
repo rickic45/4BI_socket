@@ -7,7 +7,7 @@
 #define PORT 5700              //porta del server
 #define BUFFER_SIZE 1024       //dimensione massima del buffer per i dati
 
-// Gestisce la comunicazione con un client
+//gestisce la comunicazione con un client
 void handle_client(int client_socket){
     char buffer[BUFFER_SIZE];
     char *responses[] = {
