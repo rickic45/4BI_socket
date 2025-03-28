@@ -7,6 +7,7 @@
 #define PORT 5700
 #define BUFFER_SIZE 1024
 
+// Gestisce la comunicazione con un client
 void handle_client(int client_socket){
     char buffer[BUFFER_SIZE];
     char *responses[] = {
@@ -16,34 +17,35 @@ void handle_client(int client_socket){
         "scrivendomi mi hai migliorato la giornata!"
     };
 
-    memset(buffer, 0, BUFFER_SIZE);
-    read(client_socket, buffer, BUFFER_SIZE);
+    memset(buffer, 0, BUFFER_SIZE); //inizializza il buffer a zero
+    read(client_socket, buffer, BUFFER_SIZE); //legge i dati dal client
     printf("messaggio ricevuto: %s\n", buffer);
     
-    int response_index = rand() % 4;
-    send(client_socket, responses[response_index], strlen(responses[response_index]), 0);
-    close(client_socket);
+    int response_index = rand() % 4; //seleziona una risposta casuale
+    send(client_socket, responses[response_index], strlen(responses[response_index]), 0); //invia la risposta al client
+    close(client_socket); //chiude la connessione con il client
 }
 
 int main(){
     int server_socket, client_socket;
-    struct sockaddr_in server_addr, client_addr;
-    socklen_t addr_len = sizeof(client_addr);
+    struct sockaddr_in server_addr, client_addr; //strutture per memorizzare gli indirizzi del server e del client
+    socklen_t addr_len = sizeof(client_addr); //dimensione della struttura dell'indirizzo del client
 
-    server_socket = socket(AF_INET, SOCK_STREAM, 0);
-    server_addr.sin_family = AF_INET;
-    server_addr.sin_addr.s_addr = INADDR_ANY;
-    server_addr.sin_port = htons(PORT);
+    server_socket = socket(AF_INET, SOCK_STREAM, 0); //crea il socket del server
+    
+    server_addr.sin_family = AF_INET; //specifica la famiglia di indirizzi (IPv4)
+    server_addr.sin_addr.s_addr = INADDR_ANY; //accetta connessioni da qualsiasi indirizzo
+    server_addr.sin_port = htons(PORT); //converte il numero di porta in formato di rete
 
-    bind(server_socket, (struct sockaddr*)&server_addr, sizeof(server_addr));
-    listen(server_socket, 5);
+    bind(server_socket, (struct sockaddr*)&server_addr, sizeof(server_addr)); //collega il socket alla porta specificata
+    listen(server_socket, 5); //mette il server in ascolto
     printf("server in ascolto sulla porta %d...\n", PORT);
 
     while(1){
-        client_socket = accept(server_socket, (struct sockaddr*)&client_addr, &addr_len);
-        handle_client(client_socket);
+        client_socket = accept(server_socket, (struct sockaddr*)&client_addr, &addr_len); //accetta connessioni in arrivo
+        handle_client(client_socket); //gestisce la comunicazione con il client
     }
 
-    close(server_socket);
+    close(server_socket); //chiude il socket del server 
     return 0;
 }
